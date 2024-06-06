@@ -41,14 +41,14 @@ Hugging Face Account:
 
 Run Retrieval-Augmented Generation scipt
 
-   pip install -r requirement.txt
+    pip install -r requirement.txt
 
-   You can now run the ragmodelapi.ipynb file.
+    You can now run the ragmodelapi.ipynb file.
 
 Running the Chatbot
 
     Start the Server:
-    
+
     Open a terminal and run:
 
     node server.mjs
