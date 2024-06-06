@@ -20,24 +20,28 @@ function reducer(state, action) {
 const ChatWindow = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [input, setInput] = useState('');
+  const [isSending, setIsSending] = useState(false);
 
   const sendMessage = async () => {
-    if (!input) return;
+    if (!input || isSending) return;
 
     const newMessage = { role: 'user', content: input };
     dispatch({ type: 'add_message', payload: newMessage });
     console.log('Sending message:', newMessage);
 
+    setInput('');  // Clear the input field immediately
+    setIsSending(true);
+
     try {
-      const response = await axios.post('http://localhost:5000/chat', { message: input });
+      const response = await axios.post('http://localhost:5000/chat', { message: newMessage.content });
       console.log('Response received:', response.data);
       dispatch({ type: 'add_response', payload: response.data });
     } catch (error) {
       console.error('Error sending message:', error.toJSON ? error.toJSON() : error);
       dispatch({ type: 'add_response', payload: { role: 'assistant', content: 'Error sending message' } });
+    } finally {
+      setIsSending(false);
     }
-
-    setInput('');
   };
 
   useEffect(() => {
@@ -46,6 +50,10 @@ const ChatWindow = () => {
       chatWindow.scrollTop = chatWindow.scrollHeight;
     }
   }, [state.messages]);
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') sendMessage();
+  };
 
   return (
     <div className="chat-container">
@@ -61,11 +69,12 @@ const ChatWindow = () => {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+          onKeyPress={handleKeyPress}
           className="chat-input"
+          disabled={isSending}
         />
-        <button onClick={sendMessage} className="chat-send-button">
-          Send
+        <button onClick={sendMessage} className="chat-send-button" disabled={isSending}>
+          {isSending ? 'Sending...' : 'Send'}
         </button>
       </div>
     </div>
