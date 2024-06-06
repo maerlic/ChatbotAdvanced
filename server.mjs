@@ -13,7 +13,6 @@ puppeteer.use(StealthPlugin());
 
 const app = express();
 const port1 = process.env.PORT || 5000;
-const port2 = 5001;
 const anthropicApiKey = process.env.ANTHROPIC_API_KEY;
 const anthropic = new Anthropic(anthropicApiKey);
 
