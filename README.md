@@ -36,15 +36,19 @@ Create a file named .env in the project root and add the following keys:
 Replace your_anthropic_api_key and your_openai_api_key with your actual API keys.
 
 Hugging Face Account:
-Ensure you have a Hugging Face account to use the embedding model.
+
+    Ensure you have a Hugging Face account to use the embedding model.
 
 Run Retrieval-Augmented Generation scipt
+
    pip install -r requirement.txt
 
    You can now run the ragmodelapi.ipynb file.
 
 Running the Chatbot
+
     Start the Server:
+    
     Open a terminal and run:
 
     node server.mjs
