@@ -6,22 +6,6 @@ import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import { Anthropic } from '@anthropic-ai/sdk';
 import dotenv from 'dotenv';
 import { promises as fs } from 'fs';
-import * as tf from '@tensorflow/tfjs-node-gpu'; // Ensure GPU support
-
-async function isGPUAvailable() {
-  const backend = tf.getBackend();
-  return backend === 'tensorflow';
-}
-
-async function checkGpuInUse() {
-  if (await isGPUAvailable()) {
-    console.log("GPU is available.");
-  } else {
-    console.log("GPU not available. Using CPU.");
-  }
-}
-
-checkGpuInUse();
 
 dotenv.config();
 
@@ -178,7 +162,7 @@ async function image_to_base64(imageFile) {
   });
 
   app.listen(port1, () => {
-    console.log(`Server for Claude 3 model is running on http://localhost:${port1}`);
+    console.log(`Server for Retrieval-Augmented Generation model is running on http://localhost:${port1}`);
   });
 
 })();    
